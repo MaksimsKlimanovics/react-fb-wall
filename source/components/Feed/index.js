@@ -1,13 +1,17 @@
 import React, { Component } from 'react';
 
-//Instruments
+//Components
 import Composer from 'components/Composer';
 import Post from 'components/Post';
+
+//Instructions
+
+import Styles from './styles.m.css';
 
 export default class Feed extends Component {
     render() {
         return (
-            <section>
+            <section className = { Styles.feed }>
                 <Composer />
                 <Post />
             </section>
