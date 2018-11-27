@@ -3,7 +3,6 @@
     "version": "3.0.0",
     "author": "Dima Vakatsiienko <dvakatsiienko@lectrum.io>",
     "private": true,
-    "linebreak-style": 0,
     "scripts": {
         "start": "cross-env-shell NODE_ENV=development node --require @babel/register \"./scripts/webpack/start.js\"",
         "build": "cross-env-shell NODE_ENV=production node --require @babel/register \"./scripts/webpack/build.js\"",
@@ -102,5 +101,8 @@
         "webpack-dev-server-waitpage": "1.0.0",
         "webpack-hot-middleware": "2.24.3",
         "webpack-merge": "4.1.4"
+    },
+    "rules": {
+        "linebreak-style": 0
     }
 }
