@@ -8,12 +8,15 @@ export default class Composer extends Component {
     render() {
         return (
             <section>
-                <img src = { avatar } />
+                <img src = { avatar }/>
                 <form>
-                    <textarea placeholder = {'What is on your mind, Lisa?'} />
-                    <input type = 'submit' value = 'Post' />
+                    <textarea placeholder = { 'What is on your mind, Lisa?' }/>
+                    <input
+                        type = 'submit'
+                        value = 'Post'
+                    />
                 </form>
-            </section> 
+            </section>
         );
     }
 }
