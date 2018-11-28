@@ -48,5 +48,15 @@
         &::scrollbar {
             display: none;
         }
+        &::placeholder {
+            transition: color .4s ease-out;
+            color: var(--paletteColor5);
+        }
+        &:focus::placeholder {
+            color: var(--paletteColor5);
+        }
+        &:focus{
+            font-size: 24px;
+        }
     }
 }
