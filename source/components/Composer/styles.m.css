@@ -44,6 +44,9 @@
         outline: 0;
         font-size: 14px;
         font-weight: 300;
-
+        resize: none;
+        &::scrollbar {
+            display: none;
+        }
     }
 }
