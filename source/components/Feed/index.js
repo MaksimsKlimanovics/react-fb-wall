@@ -9,7 +9,14 @@ import Post from 'components/Post';
 import Styles from './styles.m.css';
 
 export default class Feed extends Component {
+    state = {
+        posts: [],
+    };
     render() {
+        const { posts } = this.state;
+        const postJSX = posts.map.((post) => {
+            return <Post key = { post.id } />;
+        });
         return (
             <section className = { Styles.feed }>
                 <StatusBar />
