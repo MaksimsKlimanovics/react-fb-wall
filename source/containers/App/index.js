@@ -18,9 +18,9 @@ const options = {
 export default class App extends Component {
     render() {
         return (
-            <provider value = { options }>
+            <Provider value = { options }>
                 <Feed  />
-            </provider>
+            </Provider>
         );
     }
 }
