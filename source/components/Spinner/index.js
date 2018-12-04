@@ -12,6 +12,7 @@ export default class Feed extends Component {
 
         return createPortal(
             isSpinning ? <div className = { Styles.spinner } /> : null, portal,
+            console.log('"' + JSON.stringify({ isSpinning }) + '"'),
         );
     }
 }
