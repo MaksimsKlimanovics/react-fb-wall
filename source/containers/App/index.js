@@ -6,7 +6,7 @@ import { hot } from 'react-hot-loader';
 import Feed from 'components/Feed';
 import { Provider } from 'components/HOC/withProfile';
 
-import avatar from 'theme/assets/hdp2';
+import avatar from 'theme/assets/joey';
 
 const options = {
     avatar,

@@ -4,24 +4,34 @@ import React, { Component } from 'react';
 import StatusBar from 'components/StatusBar';
 import Composer from 'components/Composer';
 import Post from 'components/Post';
+import Spinner from 'components/Spinner';
 //Instructions
 
 import Styles from './styles.m.css';
 
 export default class Feed extends Component {
     state = {
-        posts: [],
+        posts: [
+            {id: '123', comment: 'Привет!', created: 1526814276 },
+            {id: '2345', comment: 'Blaaaaah!!!', created: 1543863250},
+        ],
+        isPostRendered: false,
     };
+
     render() {
-        const { posts } = this.state;
-        const postJSX = posts.map.((post) => {
-            return <Post key = { post.id } />;
+        const { posts, isPostRendered } = this.state;
+
+        const postJSX = posts.map((post) => {
+            // eslint-disable-next-line react/jsx-max-props-per-line
+            return <Post key = { post.id } { ...post } />;
         });
+
         return (
             <section className = { Styles.feed }>
+                <Spinner isSpinning = { isPostRendered }/>
                 <StatusBar />
                 <Composer />
-                <Post />
+                {postJSX}
             </section>
         );
     }
