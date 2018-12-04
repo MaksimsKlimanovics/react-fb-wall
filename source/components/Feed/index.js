@@ -14,6 +14,8 @@ export default class Feed extends Component {
         posts: [
             {id: '123', comment: 'Привет!', created: 1526814276 },
             {id: '2345', comment: 'Blaaaaah!!!', created: 1543863250},
+            {id: '2223', comment: 'Šodien ir lietaina diena', created: 1526814336 },
+            {id: '2348', comment: 'How you Dooooooin!', created: 1543863900},
         ],
         isPostRendered: false,
     };
