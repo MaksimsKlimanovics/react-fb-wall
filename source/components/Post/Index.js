@@ -24,7 +24,7 @@ export default class Post extends Component {
                         <img src = { context.avatar } />
                         <a>{` ${ context.currentUserFirstName } ${ context.currentUserLastName } `}
                         </a>
-                        <time>{moment.unix(created).format('DD.MM.YYYY HH:mm:ss')}</time>
+                        <time>{moment.unix(created).format('DD.MM.YYYY HH:MM')}</time>
                         <p>{comment}</p>
                     </section>
                 )}

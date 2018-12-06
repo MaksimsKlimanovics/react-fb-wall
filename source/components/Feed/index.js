@@ -20,7 +20,7 @@ export default class Feed extends Component {
     state = {
         posts:
         [
-            {id: '1231', comment: 'Привет!', created: 1526814276 },
+            {id: '1231', comment: 'Привет!', created: 1544081914 },
             {id: '2345', comment: 'Blaaaaah!!!', created: 1543863250 },
             {id: '2223', comment: 'Šodien ir lietaina diena', created: 1526814336 },
             {id: '2348', comment: 'How you Dooooooin!', created: 1543863900},
@@ -31,7 +31,7 @@ export default class Feed extends Component {
     _createPost (comment) {
         const post = {
             id:      getUniqueID(),
-            created: moment().utc(),
+            created: moment.utc(),
             comment,
         };
 
