@@ -6,14 +6,14 @@ import { createPortal } from 'react-dom';
 import Styles from './styles.m.css';
 
 const portal = document.getElementById('spinner');
-export default class Feed extends Component {
+export default class Spinner extends Component {
     render() {
         const { isSpinning } = this.props;
 
         return createPortal(
             isSpinning ? <div className = { Styles.spinner } /> : null, portal,
             //DEBUG >>
-            console.log('"' + JSON.stringify({ isSpinning }) + '"'),
+            console.log(JSON.stringify({ isSpinning })),
         );
     }
 }
