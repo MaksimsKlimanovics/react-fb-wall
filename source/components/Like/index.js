@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unused-prop-types */
 import React, { Component } from 'react';
 import Styles from './styles.m.css';
 import { string, arrayOf, shape, func } from 'prop-types';
@@ -6,12 +7,12 @@ import cx from 'classNames';
 export class Like extends Component {
     static propTypes = {
         _likePost: func.isRequired,
-        id: string.isRequired,
-        likes: arrayOf(
+        id:        string.isRequired,
+        likes:     arrayOf(
             shape({
-                id: string.isRequired,
+                id:        string.isRequired,
                 firstName: string.isRequired,
-                lastName: string.isRequired,
+                lastName:  string.isRequired,
             }),
         ).isRequired,
     };
@@ -46,7 +47,9 @@ export class Like extends Component {
 
         return (
             <section className = { Styles.like }>
-                <span className = { likeStyles } onClick = { this._likePost }>
+                <span
+                    className = { likeStyles }
+                    onClick = { this._likePost }>
                     Like
                 </span>
             </section>
