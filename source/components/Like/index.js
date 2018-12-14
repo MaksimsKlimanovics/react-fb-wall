@@ -21,6 +21,23 @@ export class Like extends Component {
         super();
         this._getLikedByMe = this._getLikedByMe.bind(this);
         this._getLikeStyles = this._getLikeStyles.bind(this);
+        this._likePost = this._likePost.bind(this);
+    }
+
+    state = {
+        showLikers: false
+    }
+
+    _showLikers () {
+        this.setState({
+            showLikers: true
+        });
+    }
+
+    _likePost () {
+        const { _likePost, id } = this.props;
+
+        _likePost(id);
     }
 
     _getLikedByMe() {
@@ -28,7 +45,8 @@ export class Like extends Component {
 
         return likes.some(({ firstName, lastName }) => {
             return (
-                `${firstName} ${lastName}` === `${currentUserFirstName} ${currentUserLastName}`
+                `${firstName} ${lastName}` === `${currentUserFirstName} 
+                    ${currentUserLastName}`
             );
         });
     }
@@ -42,8 +60,9 @@ export class Like extends Component {
     }
 
     render() {
-        //console.log('this.props', this.props);
         const likeStyles = this._getLikeStyles();
+
+        console.log('this.props', this.props);
 
         return (
             <section className = { Styles.like }>

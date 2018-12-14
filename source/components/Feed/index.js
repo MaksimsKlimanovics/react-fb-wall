@@ -88,7 +88,7 @@ export default class Feed extends Component {
     }
 
     async _likePost (id) {
-        const { currentUserFirstName, CurrentUserLastName } = this.props;
+        const { currentUserFirstName, currentUserLastName } = this.props;
         this._setPostFetchingState(true);
 
         await delay(1200);
@@ -102,7 +102,7 @@ export default class Feed extends Component {
                         {
                             id:        getUniqueID(),
                             firstName: currentUserFirstName,
-                            lastName:  CurrentUserLastName,
+                            lastName:  currentUserLastName,
                         },
                     ],
                 };
