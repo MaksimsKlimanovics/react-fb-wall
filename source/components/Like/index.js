@@ -25,6 +25,7 @@ export class Like extends Component {
         this._showLikers = this._showLikers.bind(this);
         this._hideLikers = this._hideLikers.bind(this);
         this._getLikersList = this._getLikersList.bind(this);
+        this._getLikersDescription = this._getLikersDescription.bind(this);
     }
 
     state = {
@@ -78,9 +79,26 @@ export class Like extends Component {
         return likes.length && showLikers ? <ul>{ likesJSX }</ul> : null;
     }
 
+    _getLikersDescription () {
+        const { likes, currentUserFirstName, currentUserLastName } = this.props;
+
+        const likedByMe = this._getLikedByMe();
+
+        if (likes.length === 1 && likedByMe) {
+            return `${currentUserFirstName} ${currentUserLastName}`;
+        } else if (likes.length === 2 && likedByMe) {
+            return `You and ${likes.length - 1} other`;
+        } else if (likedByMe) {
+            return `You and ${likes.length - 1} others`
+        }
+
+        return likes.length;
+    }
+
     render() {
         const likeStyles = this._getLikeStyles();
         const likersList = this._getLikersList();
+        const LikersDescription = this._getLikersDescription();
 
         return (
             <section className = { Styles.like }>
@@ -94,7 +112,7 @@ export class Like extends Component {
                     <span
                         onMouseEnter = { this._showLikers }
                         onMouseLeave = { this._hideLikers }>
-                        0
+                        {LikersDescription}
                     </span>
                 </div>
             </section>
