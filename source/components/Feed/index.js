@@ -26,35 +26,27 @@ export default class Feed extends Component {
                 id: '2345',
                 comment: 'Blaaaaah!!!',
                 created: 1543863250,
-                likes: [
-
-                ], 
+                likes: [],
             },
             {
                 id: '1231',
                 comment: 'Привет!',
                 created: 1544081914,
-                likes: [
-
-                ],
+                likes: [],
             },
             {
                 id: '2223',
                 comment:
                 'Šodien ir lietaina diena',
                 created: 1526814336,
-                likes: [
-
-                ],
+                likes: [],
             },
             {
                 id: '2348',
                 comment: 'How you Dooooooin!',
                 created: 1543863900,
-                likes: [
-
-                ],
-            }
+                likes: [],
+            },
         ],
         isPostFetching: false,
     };

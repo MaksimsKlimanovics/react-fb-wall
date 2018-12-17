@@ -28,18 +28,18 @@ export class Like extends Component {
     }
 
     state = {
-        showLikers: false
+        showLikers: false,
     }
 
     _showLikers () {
         this.setState({
-            showLikers: true
+            showLikers: true,
         });
     }
 
     _hideLikers () {
         this.setState({
-            showLikers: false
+            showLikers: false,
         });
     }
 
@@ -54,8 +54,7 @@ export class Like extends Component {
 
         return likes.some(({ firstName, lastName }) => {
             return (
-                `${firstName} ${lastName}` === `${currentUserFirstName} 
-                    ${currentUserLastName}`
+                `${firstName} ${lastName}` === `${currentUserFirstName} ${currentUserLastName}`
             );
         });
     }
@@ -72,13 +71,16 @@ export class Like extends Component {
         const { showLikers } = this.state;
         const { likes } = this.props;
 
-        const likesJSX = likes.map(({ firstName, lastName, id }) => <li key = {id}>{`${firstName} ${lastName}`}</li>)
+        const likesJSX = likes.map(({ firstName, lastName, id }) =>
+            (<li key = { id }>{`${firstName} ${lastName}`}</li>)
+        );
+
+        return likes.length && showLikers ? <ul>{ likesJSX }</ul> : null;
     }
 
     render() {
         const likeStyles = this._getLikeStyles();
-
-        //console.log('this.props', this.props);
+        const likersList = this._getLikersList();
 
         return (
             <section className = { Styles.like }>
@@ -88,6 +90,7 @@ export class Like extends Component {
                     Like
                 </span>
                 <div>
+                    {likersList}
                     <span
                         onMouseEnter = { this._showLikers }
                         onMouseLeave = { this._hideLikers }>
