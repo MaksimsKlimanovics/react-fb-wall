@@ -20,13 +20,8 @@ export default class Post extends Component {
         id:        string.isRequired,
     };
 
-    constructor () {
-        super();
 
-        this._deletePost = this._deletePost.bind(this);
-    }
-
-    _deletePost () {
+    _deletePost = () => {
         const { _deletePost, id } = this.props;
 
         _deletePost(id);
