@@ -59,9 +59,6 @@ export default class Feed extends Component {
     }
 
     async _createPost (comment) {
-        // this.setState({
-        //     isPostFetching: true,
-        // });
         this._setPostFetchingState(true);
 
         const post = {
@@ -110,8 +107,10 @@ export default class Feed extends Component {
         });
     }
 
-    _deletePost (id) {
+    async _deletePost (id) {
         this._setPostFetchingState(true); //по аналогии с созданием поста
+
+        await delay(1200);
 
         this.setState(({ posts }) => ({
             posts:          posts.filter((post) => post.id !== id),

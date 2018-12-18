@@ -28,7 +28,7 @@ export default class Post extends Component {
 
     _deletePost () {
         const { _deletePost, id } = this.props;
-console.log(this.props);
+
         _deletePost(id);
     }
 
