@@ -1,3 +1,4 @@
+/* eslint-disable no-unreachable */
 // Core
 import React, { Component } from 'react';
 import moment from 'moment';
@@ -29,7 +30,10 @@ export default class Post extends Component {
     }
 
     render() {
+        // eslint-disable-next-line max-len
         const { comment, created, _likePost, id, likes, avatar, currentUserFirstName, currentUserLastName } = this.props;
+
+        throw new Error();
 
         return (
             <section className = { Styles.post }>
