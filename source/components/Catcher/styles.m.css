@@ -1,5 +1,5 @@
 @import url(https://fonts.googleapis.com/css?family=Open+Sans);
-.catcher, body {
+.catcher {
     background: #3c84c7;
     color:#fff;
     font-family: 'Open Sans', sans-serif;
@@ -73,7 +73,7 @@
     width:60%;
 }
 
-p{
+.placeholder{
     padding: 0;
     border: none;
     border-top: 5px solid #fff;
@@ -85,7 +85,7 @@ p{
     z-index: -10;
 }
 
-p:after {
+.placeholder:after {
     content: "\2022";
     display: inline-block;
     position: relative;

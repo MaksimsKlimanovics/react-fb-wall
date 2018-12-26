@@ -32,6 +32,22 @@
             border: 1px solid rgba(0, 0, 0, 0.1);
             border-radius: 50%;
         }
+        
+        & ul {
+            position: absolute;
+            z-index: 1;
+            top: 30px;
+            left: 25px;
+            width: 200px;
+            padding: 6px 8px;
+            list-style: none;
+            border-radius: 2px;
+            background-color: var(--paletteColor8);
+            color: var(--paletteColor2);
+            font-size: 12px;
+            line-height: 16px;
+            text-align: left;
+        }
 
         &:hover {
             background: rgba(0, 0, 0, 0.1);

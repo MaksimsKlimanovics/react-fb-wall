@@ -8,6 +8,7 @@ import Composer from 'components/Composer';
 import Post from 'components/Post';
 import Spinner from 'components/Spinner';
 import { getUniqueID, delay } from 'instruments';
+import { api } from 'config/api';
 //Instructions
 
 import Styles from './styles.m.css';

@@ -33,7 +33,7 @@ export default class Post extends Component {
         // eslint-disable-next-line max-len
         const { comment, created, _likePost, id, likes, avatar, currentUserFirstName, currentUserLastName } = this.props;
 
-        throw new Error();
+        //throw new Error();
 
         return (
             <section className = { Styles.post }>
