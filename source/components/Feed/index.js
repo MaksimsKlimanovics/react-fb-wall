@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import moment from 'moment';
 
 //Components
 import { withProfile } from 'components/HOC/withProfile';
@@ -8,48 +7,26 @@ import Composer from 'components/Composer';
 import Post from 'components/Post';
 import Spinner from 'components/Spinner';
 import { getUniqueID, delay } from 'instruments';
-import { api } from 'config/api';
+import { api, TOKEN } from 'config/api';
 //Instructions
 
 import Styles from './styles.m.css';
-import { get } from 'https';
 
 @withProfile
 export default class Feed extends Component {
     state = {
         posts:
-        [
-            {
-                id: '2345',
-                comment: 'Blaaaaah!!!',
-                created: 1543863250,
-                likes: [],
-            },
-            {
-                id: '1231',
-                comment: 'Привет!',
-                created: 1544081914,
-                likes: [],
-            },
-            {
-                id: '2223',
-                comment:
-                'Šodien ir lietaina diena',
-                created: 1526814336,
-                likes: [],
-            },
-            {
-                id: '2348',
-                comment: 'How you Dooooooin!',
-                created: 1543863900,
-                likes: [],
-            },
-        ],
+        [],
         isPostFetching: false,
     };
 
     componentDidMount () {
         this._fetchPosts();
+        this.refetch = setInterval(this._fetchPosts, 1000);
+    }
+
+    componentWillUnmount() {
+        clearInterval(this.refetch);
     }
 
     _setPostFetchingState = (state) => {
@@ -66,7 +43,6 @@ export default class Feed extends Component {
         });
 
         const { data: posts } = await response.json();
-        console.log(posts);
 
         this.setState({
             posts,
@@ -77,14 +53,16 @@ export default class Feed extends Component {
     _createPost = async (comment) => {
         this._setPostFetchingState(true);
 
-        const post = {
-            id:      getUniqueID(),
-            created: moment.utc().unix(),
-            comment,
-            likes: [],
-        };
+        const response = await fetch (api, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/JSON',
+                Authorization: TOKEN,
+            },
+            body: JSON.stringify({ comment }),
+        });
 
-        await delay(1200);
+        const { data: post } = await response.json();
 
         this.setState(({ posts }) => ({
             posts:          [ post, ...posts ],
@@ -95,38 +73,33 @@ export default class Feed extends Component {
     }
 
     _likePost = async (id) => {
-        const { currentUserFirstName, currentUserLastName } = this.props;
         this._setPostFetchingState(true);
 
-        await delay(1200);
-
-        // eslint-disable-next-line react/no-access-state-in-setstate
-        const newPosts = this.state.posts.map((post) => {
-            if (post.id === id) {
-                return {
-                    ...post,
-                    likes: [
-                        {
-                            id:        getUniqueID(),
-                            firstName: currentUserFirstName,
-                            lastName:  currentUserLastName,
-                        },
-                    ],
-                };
-            }
-
-            return post;
+        const response = await fetch (`${api}/${id}`, {
+            method: 'PUT',
+            headers: {
+                Authorization: TOKEN,
+            },
         });
-        this.setState({
-            posts:          newPosts,
-            isPostFetching: false,
-        });
+
+        const { data: likedPost } = await response.json();
+
+        this.setState(({posts}) => ({
+            posts: posts.map(
+                (post) => post.id === likedPost.id ? likedPost: post,
+            ), isPostFetching: false,
+        }));
     }
 
     _deletePost = async (id) => {
         this._setPostFetchingState(true); //по аналогии с созданием поста
 
-        await delay(1200);
+        await fetch (`${api}/${id}`, {
+            method: 'DELETE',
+            headers: {
+                Authorization: TOKEN,
+            },
+        });
 
         this.setState(({ posts }) => ({
             posts:          posts.filter((post) => post.id !== id),

@@ -37,7 +37,7 @@ export default class Catcher extends Component {
           window.location.reload();
 
         document.body.classList.add(`${Styles.catcher}`);
-        console.log('--> catcher');
+
         let cloud1  = `${Styles.cloud} ${Styles.cloud_x1}`;
         let cloud2  = `${Styles.cloud} ${Styles.cloud_x1_5}`;
         let cloud3  = `${Styles.cloud} ${Styles.cloud_x2}`;

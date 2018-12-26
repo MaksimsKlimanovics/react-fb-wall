@@ -10,8 +10,8 @@ import avatar from 'theme/assets/joey';
 
 const options = {
     avatar,
-    currentUserFirstName: 'Joey',
-    currentUserLastName:  'Tribbiani',
+    currentUserFirstName: 'Максим',
+    currentUserLastName:  'Климанович',
 };
 
 export default class App extends Component {
