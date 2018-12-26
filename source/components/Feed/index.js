@@ -12,6 +12,7 @@ import { api } from 'config/api';
 //Instructions
 
 import Styles from './styles.m.css';
+import { get } from 'https';
 
 @withProfile
 export default class Feed extends Component {
@@ -47,9 +48,29 @@ export default class Feed extends Component {
         isPostFetching: false,
     };
 
+    componentDidMount () {
+        this._fetchPosts();
+    }
+
     _setPostFetchingState = (state) => {
         this.setState({
             isPostFetching: state,
+        });
+    }
+
+    _fetchPosts = async () => {
+        this._setPostFetchingState(true);
+
+        const response = await fetch (api, {
+            method: 'GET'
+        });
+
+        const { data: posts } = await response.json();
+        console.log(posts);
+
+        this.setState({
+            posts,
+            isPostFetching: false,
         });
     }
 
