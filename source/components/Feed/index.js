@@ -6,8 +6,9 @@ import StatusBar from 'components/StatusBar';
 import Composer from 'components/Composer';
 import Post from 'components/Post';
 import Spinner from 'components/Spinner';
-import { getUniqueID, delay } from 'instruments';
-import { api, TOKEN } from 'config/api';
+import { api, TOKEN, GROUP_ID } from 'config/api';
+import { socket } from 'socket/init';
+
 //Instructions
 
 import Styles from './styles.m.css';
@@ -21,12 +22,41 @@ export default class Feed extends Component {
     };
 
     componentDidMount () {
+        const { currentUserFirstName, currentUserLastName } = this.props;
+
         this._fetchPosts();
-        this.refetch = setInterval(this._fetchPosts, 1000);
-    }
+
+        socket.emit('join', GROUP_ID);
+
+        socket.on('create', (postJson) => {
+            const { data: createdPost, meta } = JSON.parse(postJson);
+
+            if (`${currentUserFirstName} ${currentUserLastName}` !== 
+                `${meta.authorFirstName} ${meta.authorLastName}`
+            ) {
+                this.setState(({ posts }) => ({
+                    posts: [createdPost, ...posts],
+               }));
+            }
+        });
+
+        socket.on('remove', (postJson) => {
+            const { data: removedPost, meta } = JSON.parse(postJson);
+
+            if (`${currentUserFirstName} ${currentUserLastName}` !== 
+                `${meta.authorFirstName} ${meta.authorLastName}`
+            ) {
+                this.setState(({ posts }) => ({
+                    posts: posts.filter(post => post.id !== removedPost.id),
+                }));
+            }
+        });
+
+    };
 
     componentWillUnmount() {
-        clearInterval(this.refetch);
+        socket.removeListener('create');
+        socket.removeListener('remove');
     }
 
     _setPostFetchingState = (state) => {
@@ -60,6 +90,7 @@ export default class Feed extends Component {
                 Authorization: TOKEN,
             },
             body: JSON.stringify({ comment }),
+
         });
 
         const { data: post } = await response.json();
@@ -111,7 +142,6 @@ export default class Feed extends Component {
         const { posts, isPostFetching } = this.state;
 
         const postJSX = posts.map((post) => {
-            // eslint-disable-next-line react/jsx-max-props-per-line
             return <Post key = { post.id } { ...post } _likePost = { this._likePost } _deletePost = { this._deletePost } />;
         });
 
