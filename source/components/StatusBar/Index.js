@@ -53,7 +53,7 @@ export default class StatusBar extends Component {
 
         const statusMessage = online ? 'Online' : 'Offline';
 
-        console.log('online', online)
+        //console.log('online', online)
 
         //show error page!
         if (this.state.err)
