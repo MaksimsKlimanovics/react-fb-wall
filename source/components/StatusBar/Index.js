@@ -1,5 +1,7 @@
 // Core
 import React, { Component } from 'react';
+import { Transition } from 'react-transition-group';
+import { fromTo } from 'gsap';
 
 //Components
 import { withProfile } from 'components/HOC/withProfile';
@@ -42,6 +44,10 @@ export default class StatusBar extends Component {
           }
     };
 
+    _animateStatusBarEnter = ( statusBar ) => {
+        fromTo(statusBar, 1.5 , { opacity: 0 }, { opacity: 1 }); 
+    }
+
     render() {
         const { avatar, currentUserFirstName, currentUserLastName } = this.props;
         const { online } = this.state;
@@ -53,29 +59,34 @@ export default class StatusBar extends Component {
 
         const statusMessage = online ? 'Online' : 'Offline';
 
-        //console.log('online', online)
-
         //show error page!
         if (this.state.err)
             throw this.state.err;
 
         return (
-            <section className = { Styles.statusBar } >
-                <div className = { statusStyle }>
-                    <div>{ statusMessage }</div>
-                    <span />
-                </div>
-                <div>
-                    <button 
-                        onClick = { this.handleClick }
-                    >
-                        <img src = { avatar } />
-                        <span>{ currentUserFirstName }</span>
-                        &nbsp;
-                        <span>{ currentUserLastName }</span>
-                    </button>
-                </div>
-            </section>
+            <Transition
+                appear
+                in
+                timeout = { 4000 }
+                onEnter = { this._animateStatusBarEnter }
+            >
+                <section className = { Styles.statusBar } >
+                    <div className = { statusStyle }>
+                        <div>{ statusMessage }</div>
+                        <span />
+                    </div>
+                    <div>
+                        <button 
+                            onClick = { this.handleClick }
+                        >
+                            <img src = { avatar } />
+                            <span>{ currentUserFirstName }</span>
+                            &nbsp;
+                            <span>{ currentUserLastName }</span>
+                        </button>
+                    </div>
+                </section>
+            </Transition>
         );
     }
 }
