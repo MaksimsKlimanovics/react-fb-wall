@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`instruments getFullApiUrl function should return addition of to arguments 1`] = `"qwerty/ytrewq"`;
+
+exports[`instruments sum function should return addition of to arguments 1`] = `5`;
