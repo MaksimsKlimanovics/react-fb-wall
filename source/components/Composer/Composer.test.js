@@ -44,9 +44,9 @@ describe('Composer components:', () => {
 
     // в этом месте падают тесты. Не понимаю почему и что у меня не так как надо.
     // с тестами не справляюсь - не понимаю в чём проблема -->>
-    //test('should have valid initial state', () => {
-    //  expect(result.state()).toEqual(initialState);
-    //});
+    test('should have valid initial state', () => {
+      expect(result.state()).toEqual(initialState);
+    });
 
     test('textarea value should be empty initially', () => {
       expect(result.find('textarea').text()).toBe('');
@@ -62,7 +62,7 @@ describe('Composer components:', () => {
       // в этом месте падают тесты. Не понимаю почему и что у меня не так как надо.
       // с тестами не справляюсь - не понимаю в чём проблема -->>
       //та же тема!!!
-      //expect(result.find('textarea').text()).toBe(comment);
+      expect(result.find('textarea').text()).toBe(comment);
     });
 });
 
