@@ -1,16 +1,18 @@
 // Core
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import { func, string } from 'prop-types';
 //Components
 import { withProfile } from 'components/HOC/withProfile';
 //Instructions
 import Styles from './styles.m.css';
 
-@withProfile
-export default class Composer extends Component {
+//@withProfile
+export class Composer extends Component {
     static propTypes = {
         // eslint-disable-next-line react/no-unused-prop-types
-        _createPost: PropTypes.func.isRequired,
+        _createPost:          func.isRequired,
+        avatar:               string.isRequired,
+        currentUserFirstName: string.isRequired,
     };
 
     // eslint-disable-next-line react/sort-comp
@@ -76,3 +78,4 @@ export default class Composer extends Component {
         );
     }
 }
+export default withProfile(Composer);

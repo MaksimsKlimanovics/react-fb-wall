@@ -1,12 +1,11 @@
 import React from 'react';
-import Composer from './';
-import { mount, configure } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
-
-configure({ adapter: new Adapter() });
+import { Composer } from './';
+import { mount } from 'enzyme';
 
 const props = {
-  _createPost: jest.fn(),
+  _createPost:          jest.fn(),
+  avatar:               'qwerty',
+  currentUserFirstName: 'qwerty',
 };
 
 const comment = 'LOL';
@@ -21,48 +20,101 @@ const updatedState = {
 
 const result = mount(<Composer { ...props } />);
 
+const _submitCommentSpy = jest.spyOn(result.instance(), '_submitComment');
+const _handleFormSubmitSpy = jest.spyOn(result.instance(), '_handleFormSubmit');
+const _updateCommentSpy = jest.spyOn(result.instance(), '_updateComment');
+const _submitOnEnterSpy = jest.spyOn(result.instance(), '_submitOnEnter');
+
 describe('Composer components:', () => {
   test('should have 1 "section" element', () => {
-      expect(result.find('section')).toHaveLength(1)
+    expect(result.find('section')).toHaveLength(1)
+  });
+
+  test('should have 1 "form" element', () => {
+    expect(result.find('form')).toHaveLength(1)
+  });
+
+  test('should have 1 "textarea" element', () => {
+    expect(result.find('textarea')).toHaveLength(1)
+  });
+
+  test('should have 1 "input" element', () => {
+    expect(result.find('input')).toHaveLength(1)
+  });
+
+  test('should have 1 "img" element', () => {
+    expect(result.find('img')).toHaveLength(1)
+  });
+
+  test('should have valid initial state', () => {
+    expect(result.state()).toEqual(initialState);
+  });
+
+  test('textarea value should be empty initially', () => {
+    expect(result.find('textarea').text()).toBe('');
+  });
+
+  test('should respond to state change properly', () => {
+    result.setState({
+      comment,
     });
 
-    test('should have 1 "form" element', () => {
-      expect(result.find('form')).toHaveLength(1)
+    expect(result.state()).toEqual(updatedState);
+
+    expect(result.find('textarea').text()).toBe(comment);
+
+    result.setState({
+      comment: '',
     });
 
-    test('should have 1 "textarea" element', () => {
-      expect(result.find('textarea')).toHaveLength(1)
-    });
+    expect(result.state()).toEqual(initialState);
 
-    test('should have 1 "input" element', () => {
-      expect(result.find('input')).toHaveLength(1)
-    });
+    expect(result.find('textarea').text()).toBe('');
+  });
 
-    test('should have 1 "img" element', () => {
-      expect(result.find('img')).toHaveLength(1)
-    });
+  test('should handle textarea "change" event', () => {
+    result.find('textarea').simulate('change', {
+      target: {
+        value: comment
+      }
+    })
 
-    // в этом месте падают тесты. Не понимаю почему и что у меня не так как надо.
-    // с тестами не справляюсь - не понимаю в чём проблема -->>
-    test('should have valid initial state', () => {
-      expect(result.state()).toEqual(initialState);
-    });
+    expect(result.find('textarea').text()).toBe(comment);
+    expect(result.state()).toEqual(updatedState);
+  });
 
-    test('textarea value should be empty initially', () => {
-      expect(result.find('textarea').text()).toBe('');
-    });
+  test('should handle form "submit" event', () => {
+    result.find('form').simulate('submit');
 
-    test('should respond to state change properly', () => {
-      result.setState({
-        comment,
-      });
+    expect(result.find('textarea').text()).toBe('');
+  });
 
-      expect(result.state()).toEqual(updatedState);
-    
-      // в этом месте падают тесты. Не понимаю почему и что у меня не так как надо.
-      // с тестами не справляюсь - не понимаю в чём проблема -->>
-      //та же тема!!!
-      expect(result.find('textarea').text()).toBe(comment);
-    });
+  test('_createPost prop should be invoked once after form submit', () => {
+    expect(props._createPost.mock.calls.length).toBe(1);
+    expect(props._createPost).toHaveBeenCalled();
+    expect(props._createPost).toHaveBeenCalledTimes(1);
+  });
+
+  test('_submitComment and _handleFormSubmit class methods should be invoked once after form is submitted', () => {
+    expect(_submitCommentSpy).toHaveBeenCalledTimes(1);
+    expect(_handleFormSubmitSpy).toHaveBeenCalledTimes(1);
+  });
+
+  test('avatar should produce a string value', () => {
+    expect(typeof props.avatar).toBe('string');
+  });
+
+  test('currentUserFirstName should produce a string value', () => {
+    expect(typeof props.currentUserFirstName).toBe('string');
+  });
+
+  test('_submitOnEnter should be run after key ENTER was pressed', () => {
+    result.find('textarea').simulate('keypress', {keyCode: 13});
+    expect(_submitOnEnterSpy).toBeCalledTimes(1);
+  });
+
+  test('_updateComment class methods should be invoked once after form is submitted', () => {
+    expect(_updateCommentSpy).toHaveBeenCalledTimes(1);
+  });
 });
 
